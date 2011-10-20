@@ -60,9 +60,4 @@ public class Invoice implements Serializable
 	{
 		return invoiceID;
 	}
-
-	public void setInvoiceID(String invoiceID)
-	{
-		this.invoiceID = invoiceID;
-	}
 }

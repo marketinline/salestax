@@ -16,6 +16,7 @@ public class Item implements Serializable
 	private BigDecimal quantity;
 	private BigDecimal price;
 	private BigDecimal salesTax;
+	
 	/**
 	 * @return the itemID
 	 */
@@ -81,6 +82,25 @@ public class Item implements Serializable
 		this.salesTax = salesTax;
 	}
 	
+	@Override
+	public Item clone()
+	{
+		Item item = new Item();
+		item.setItemID(this.itemID);
+		item.setName(this.name);
+		item.setPrice(this.price);
+		item.setQuantity(this.quantity);
+		item.setSalesTax(this.salesTax);
+		return item;
+	}
 	
+	public Item cloneBasicFields()
+	{
+		Item item = new Item();
+		item.setItemID(this.itemID);
+		item.setName(this.name);
+		item.setPrice(this.price);
+		return item;
+	}
 	
 }

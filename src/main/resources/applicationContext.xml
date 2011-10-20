@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:aop="http://www.springframework.org/schema/aop"
+ xmlns:context="http://www.springframework.org/schema/context"
+ xmlns:jee="http://www.springframework.org/schema/jee"
+ xmlns:tx="http://www.springframework.org/schema/tx"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd         http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+    
+    <bean id="socialService" class="com.emrg.smile.social.SocialService">
+        <property name="personAccessObject" ref="socialDao"/>
+    </bean>
+    <bean id="socialDao" class="com.emrg.smile.social.PersonDaoImpl">
+        <property name="store" ref="socialStore"/>
+    </bean>
+    <bean id="socialStore" class="com.emrg.smile.social.PersonDataStore">
+        <constructor-arg name="personCache" ref="smile.SocialCache"/>
+        <constructor-arg name="personSerializer" ref="social.VoldemortSerializer"/>
+        <constructor-arg name="threshHoldToStopInsert" value="10000"/>
+        <constructor-arg name="threshHoldtoRaiseEvent" value="9000"/>
+    </bean>
+    <bean id="smile.SocialCache" class="com.emrg.smile.social.PersonCache">
+    </bean>
+    
+    <bean id="social.VoldemortSerializer" class="com.emrg.smile.social.PersonCacheSerializer">
+        <constructor-arg name="path" value="social_store"/>
+        <constructor-arg name="url" value="tcp://localhost:6666"/>
+        <constructor-arg name="stopFlush" value="false"/>
+        <constructor-arg name="threadPool" ref="social.serializer.threadpool"/>
+        
+    </bean>
+    
+    <bean id="social.serializer.threadpool" class="java.util.concurrent.ExecutorService"
+     factory-bean="social.serialier.threadpool.factory"
+     factory-method="getExecutorService">
+    </bean>
+    <bean id="social.serialier.threadpool.factory" class="com.emrg.finapp.threadpool.VanillaThreadPool">
+        <constructor-arg name="poolSize" value="10"/>
+        <constructor-arg name="threadNamePrefix" value="social.serializer"/>
+    </bean>
+    
+    <!-- Content area -->
+    <bean id="contentService" class="com.emrg.smile.content.ContentService">
+        <property name="contentAccessObject" ref="contentDao"/>
+    </bean>
+    <bean id="contentDao" class="com.emrg.smile.content.ContentDaoImpl">
+        <property name="store" ref="contentStore"/>
+    </bean>
+    <bean id="contentStore" class="com.emrg.smile.content.ContentDatastore">
+        <constructor-arg name="contentCache" ref="smile.ContentCache"/>
+        <constructor-arg name="contentSerializer" ref="content.VoldemortSerializer"/>
+        <constructor-arg name="threshHoldToStopInsert" value="10000"/>
+        <constructor-arg name="threshHoldtoRaiseEvent" value="9000"/>
+    </bean>
+    <bean id="smile.ContentCache" class="com.emrg.smile.content.ContentCache">
+    </bean>
+    
+    <bean id="content.VoldemortSerializer" class="com.emrg.smile.content.ContentCacheSerializer">
+        <constructor-arg name="path" value="content_store"/>
+        <constructor-arg name="url" value="tcp://localhost:6666"/>
+        <constructor-arg name="stopFlush" value="false"/>
+        <constructor-arg name="threadPool" ref="content.serializer.threadpool"/>
+    </bean>
+    
+    <!-- Common thread areas -->
+    <bean id="content.serializer.threadpool" class="java.util.concurrent.ExecutorService"
+     factory-bean="content.serialier.threadpool.factory"
+     factory-method="getExecutorService">
+    </bean>
+    <bean id="content.serialier.threadpool.factory" class="com.emrg.finapp.threadpool.VanillaThreadPool">
+        <constructor-arg name="poolSize" value="10"/>
+        <constructor-arg name="threadNamePrefix" value="content.serializer"/>
+    </bean>
+    
+	<!--Security Store related items-->
+    <bean id="securityService" class="com.emrg.smile.security.SecurityService">
+        <property name="securityDaoImpl" ref="securityDao"/>
+    </bean>
+    <bean id="securityDao" class="com.emrg.smile.security.SecurityDaoImpl">
+        <property name="securityDataStore" ref="securityStore"/>
+    </bean>
+    <bean id="securityStore" class="com.emrg.smile.security.SecurityDataStore">
+        <constructor-arg name="securityCache" ref="smile.SecurityCache"/>
+        <constructor-arg name="securityCacheSerializer" ref="security.VoldemortSerializer"/>
+        <constructor-arg name="thresholdToStopInsert" value="10000"/>
+        <constructor-arg name="thresholdToRaiseEvent" value="9000"/>
+    </bean>
+    <bean id="smile.SecurityCache" class="com.emrg.smile.security.SecurityCache">
+    </bean>
+    <bean id="security.VoldemortSerializer" class="com.emrg.smile.security.SecurityCacheSerializer">
+        <constructor-arg name="path" value="security_store"/>
+        <constructor-arg name="url" value="tcp://localhost:6666"/>
+        <constructor-arg name="stopFlush" value="false"/>
+        <constructor-arg name="threadPool" ref="security.serializer.threadpool"/>
+    </bean>
+    <bean id="security.serializer.threadpool" class="java.util.concurrent.ExecutorService" factory-bean="security.serialier.threadpool.factory" factory-method="getExecutorService">
+    </bean>
+    <bean id="security.serialier.threadpool.factory" class="com.emrg.finapp.threadpool.VanillaThreadPool">
+        <constructor-arg name="poolSize" value="10"/>
+        <constructor-arg name="threadNamePrefix" value="security.serializer"/>
+    </bean>
+</beans>
