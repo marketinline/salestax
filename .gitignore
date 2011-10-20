@@ -1,0 +1,16 @@
+# Individual files to untrack
+.jetproperties
+.classpath
+
+# Filetype to ignore
+*Thumbs.db
+*.*~
+*.swp
+*.class
+*~
+*.war
+# ignore all directories and files in the build directory.
+WebContent/WEB-INF/classes/
+WebContent/WEB-INF/lib/
+.metadata/
+.settings/
