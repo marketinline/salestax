@@ -25,5 +25,6 @@ public class InvoiceRenderer
 		out.println();
 		out.println("Sales Tax :"+invoice.getTotalTax());
 		out.println("Total :"+invoice.getTotalAmount());
+		out.println();
 	}
 }

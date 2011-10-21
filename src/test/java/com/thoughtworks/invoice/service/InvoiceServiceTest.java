@@ -132,6 +132,7 @@ public class InvoiceServiceTest
 		InvoiceRenderer renderer = new InvoiceRenderer(System.out);
 		renderer.render(invoice);
 		
+		service.counterTransaction();
 	}
 	
 	@Test
@@ -153,6 +154,7 @@ public class InvoiceServiceTest
 		InvoiceRenderer renderer = new InvoiceRenderer(System.out);
 		renderer.render(invoice);
 		
+		service.counterTransaction();
 	}
 	
 	@Test
@@ -185,6 +187,15 @@ public class InvoiceServiceTest
 		InvoiceRenderer renderer = new InvoiceRenderer(System.out);
 		renderer.render(invoice);
 		
+		service.counterTransaction();
+		
 	}
-
+	
+	@Test
+	public void testAllSampleInvoices()
+	{
+		testSampleInvoice1();
+		testSampleInvoice2();
+		testSampleInvoice3();
+	}
 }
