@@ -1,3 +1,6 @@
+/*
+ * @author Manimaran Selvan
+ */
 package com.thoughtworks.invoice.service;
 
 import java.math.BigDecimal;
@@ -15,12 +18,20 @@ import com.thoughtworks.invoice.Tax;
 import com.thoughtworks.invoice.renderer.InvoiceRenderer;
 import com.thoughtworks.invoice.util.InvoiceUtils;
 
+/**
+ * The Class InvoiceServiceTest.
+ */
 public class InvoiceServiceTest
 {
+	
 	private InvoiceService service;
+	
 	@Before
 	public void setUp() throws Exception
 	{
+		/*
+		 * Load cache as there is no database or serializer implemented to load data
+		 */
 		Tax localTax = new Tax();
 		localTax.setTaxName("local.tax");
 		Tax importTax = new Tax();
@@ -106,8 +117,15 @@ public class InvoiceServiceTest
 	@After
 	public void tearDown() throws Exception
 	{
+		/*
+		 * Not implemented as of now
+		 */
+		service.clearStockStore();
 	}
 
+	/**
+	 * Test sample invoice1.
+	 */
 	@Test
 	public void testSampleInvoice1()
 	{
@@ -135,6 +153,9 @@ public class InvoiceServiceTest
 		service.counterTransaction();
 	}
 	
+	/**
+	 * Test sample invoice2.
+	 */
 	@Test
 	public void testSampleInvoice2()
 	{
@@ -157,6 +178,9 @@ public class InvoiceServiceTest
 		service.counterTransaction();
 	}
 	
+	/**
+	 * Test sample invoice3.
+	 */
 	@Test
 	public void testSampleInvoice3()
 	{
@@ -191,6 +215,9 @@ public class InvoiceServiceTest
 		
 	}
 	
+	/**
+	 * Test all sample invoices.
+	 */
 	@Test
 	public void testAllSampleInvoices()
 	{

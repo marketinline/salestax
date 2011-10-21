@@ -13,12 +13,24 @@ import org.slf4j.LoggerFactory;
 import com.thoughtworks.invoice.Item;
 import com.thoughtworks.invoice.Tax;
 
+/**
+ * The Singleton Class ItemTaxFiller.
+ */
 public class ItemTaxFiller
 {
+	
+	/** The Constant logger. */
 	private static final Logger logger = LoggerFactory.getLogger(ItemTaxFiller.class);
+	
+	/** The Constant TAX_CONFIG. */
 	private static final String TAX_CONFIG = "tax.properties";
+	
+	/** The tax properties. */
 	private Properties taxProperties = new Properties();
 	
+	/**
+	 * Instantiates a new item tax filler.
+	 */
 	private ItemTaxFiller()
 	{
 		try 
@@ -33,14 +45,30 @@ public class ItemTaxFiller
 		logger.debug("Initialized singleton");
 	}
 	
+	/**
+	 * The Class ItemTaxFillterInitializer.
+	 */
 	private static class ItemTaxFillterInitializer {
+		
+		/** The Constant newInstance. */
 		private static final ItemTaxFiller newInstance = new ItemTaxFiller();
+		
+		/**
+		 * Gets the single instance of ItemTaxFillterInitializer.
+		 *
+		 * @return single instance of ItemTaxFillterInitializer
+		 */
 		public static ItemTaxFiller getInstance()
 		{
 			return newInstance;
 		}
 	}
 	
+	/**
+	 * Gets the single instance of ItemTaxFiller.
+	 *
+	 * @return single instance of ItemTaxFiller
+	 */
 	public static ItemTaxFiller getInstance()
 	{
 		return ItemTaxFillterInitializer.getInstance();

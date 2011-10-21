@@ -1,3 +1,6 @@
+/*
+ * @author Manimaran Selvan
+ */
 package com.thoughtworks.invoice.dal;
 
 import java.math.BigDecimal;
@@ -5,8 +8,19 @@ import java.math.BigDecimal;
 import com.emrg.smile.miledb.MileCache;
 import com.thoughtworks.invoice.Item;
 
+/**
+ * The Class StockCache.
+ */
 public class StockCache extends MileCache<Item>
 {
+	
+	/**
+	 * Enquire stock availability.
+	 *
+	 * @param itemID the item id
+	 * @param quantity the quantity
+	 * @return the boolean
+	 */
 	public Boolean enquireStockAvailability(String itemID, BigDecimal quantity)
 	{
 		if(itemID!=null && getMileCacheMap().containsKey(itemID))
@@ -20,6 +34,13 @@ public class StockCache extends MileCache<Item>
 		return Boolean.FALSE;
 	}
 	
+	/**
+	 * Update stock.
+	 *
+	 * @param itemID the item id
+	 * @param quantity the quantity
+	 * @return the boolean
+	 */
 	public Boolean updateStock(String itemID, BigDecimal quantity)
 	{
 		if(enquireStockAvailability(itemID, quantity))

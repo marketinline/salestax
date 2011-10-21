@@ -6,8 +6,6 @@ package com.thoughtworks.invoice;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import com.thoughtworks.invoice.util.ItemTaxFiller;
-
 public class Tax implements Serializable
 {
 	
