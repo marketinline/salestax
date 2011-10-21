@@ -6,8 +6,6 @@ import java.util.Map;
 
 import com.emrg.smile.miledb.MileDataStore;
 import com.thoughtworks.invoice.Invoice;
-import com.thoughtworks.invoice.Item;
-
 
 public class InvoiceDataStore extends MileDataStore<Invoice>
 {

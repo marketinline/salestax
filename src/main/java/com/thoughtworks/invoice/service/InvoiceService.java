@@ -40,8 +40,6 @@ public class InvoiceService
 			{
 				itemMap.put(itemID, item);
 			}
-			BigDecimal totalSalesTax = item.getSalesTax().add(currentInvoice.getTotalSalesTax());
-			currentInvoice.setTotalSalesTax(totalSalesTax);
 			invoiceDao.createOrUpdateInvoice(currentInvoice);
 			return Boolean.TRUE;
 		}
@@ -58,7 +56,12 @@ public class InvoiceService
 		}
 		itemMap.clear();
 	}
-
+	
+	public Boolean enquireStockAvailability(Item item)
+	{
+		return invoiceDao.enquireStockAvailability(item);
+	}
+	
 	public Invoice getCurrentInvoice()
 	{
 		return currentInvoice;

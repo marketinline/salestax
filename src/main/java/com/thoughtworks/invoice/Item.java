@@ -5,6 +5,7 @@ package com.thoughtworks.invoice;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Set;
 
 public class Item implements Serializable
 {
@@ -16,6 +17,7 @@ public class Item implements Serializable
 	private BigDecimal quantity;
 	private BigDecimal price;
 	private BigDecimal salesTax;
+	private Set<Tax> taxes;
 	
 	/**
 	 * @return the itemID
@@ -101,6 +103,14 @@ public class Item implements Serializable
 		item.setName(this.name);
 		item.setPrice(this.price);
 		return item;
+	}
+	public Set<Tax> getTaxes()
+	{
+		return taxes;
+	}
+	public void setTaxes(Set<Tax> taxes)
+	{
+		this.taxes = taxes;
 	}
 	
 }
