@@ -16,7 +16,7 @@ import com.thoughtworks.invoice.Tax;
 public class ItemTaxFiller
 {
 	private static final Logger logger = LoggerFactory.getLogger(ItemTaxFiller.class);
-	public static final String TAX_CONFIG = "tax.properties";
+	private static final String TAX_CONFIG = "tax.properties";
 	private Properties taxProperties = new Properties();
 	
 	private ItemTaxFiller()

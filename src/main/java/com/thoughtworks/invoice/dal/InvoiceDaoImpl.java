@@ -1,5 +1,6 @@
 package com.thoughtworks.invoice.dal;
 
+import java.math.BigDecimal;
 import java.util.Map;
 
 import com.thoughtworks.invoice.Invoice;
@@ -15,9 +16,13 @@ public class InvoiceDaoImpl
 		getInvoiceDataStore().put(invoice.getInvoiceID(), invoice);
 	}
 	
-	public Boolean updateQuantity(Invoice invoice, Item item)
+	public Item fetchItemFromStore(String itemID)
 	{
-		return getStockDataStore().updateStock(item);
+		return stockDataStore.get(itemID);
+	}
+	public Boolean updateQuantity(Item item, BigDecimal quantity)
+	{
+		return getStockDataStore().updateStock(item, quantity);
 	}
 		
 	public Boolean enquireStockAvailability(Item item)

@@ -1,5 +1,6 @@
 package com.thoughtworks.invoice.dal;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -83,17 +84,25 @@ public class StockDataStore extends MileDataStore<Item>
 	@Override
 	public void putAll(Map<String, Item> map)
 	{
-		// TODO Implementation to put all the items		
+		if(map!=null && !map.isEmpty())
+		{
+			if(isCached())
+			{
+				StockCache defaultCache = getDefaultCache();
+				defaultCache.putAll(map);
+			}
+			getMileSerializer().putAll(map);
+		}	
 	}
 	
-	public Boolean updateStock(Item item)
+	public Boolean updateStock(Item item, BigDecimal quantity)
 	{
 		if(cached)
 		{
 			StockCache defaultCache = getDefaultCache();
-			return defaultCache.updateStock(item.getItemID(), item.getQuantity());			
+			return defaultCache.updateStock(item.getItemID(), quantity);			
 		}
-		return ((StockSerializer)mileSerializer).updateStock(item.getItemID(), item.getQuantity());
+		return ((StockSerializer)mileSerializer).updateStock(item.getItemID(), quantity);
 	}
 	
 	public Boolean enquireStockAvailability(Item item)

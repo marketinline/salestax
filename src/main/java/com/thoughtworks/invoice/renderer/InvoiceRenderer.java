@@ -20,10 +20,10 @@ public class InvoiceRenderer
 
 		for(Item item : invoice.getItemMap().values())
 		{
-			out.println(item.getQuantity()+" "+item.getName()+" "+item.getItemAmount());
+			out.println(item.getQuantity()+" "+item.getName()+" at "+item.getItemAmount());
 		}
 		out.println();
-		out.println("Total Sales Tax :"+invoice.getTotalSalesTax());
-		out.println("Total Price :"+invoice.getTotalAmount());
+		out.println("Sales Tax :"+invoice.getTotalTax());
+		out.println("Total :"+invoice.getTotalAmount());
 	}
 }

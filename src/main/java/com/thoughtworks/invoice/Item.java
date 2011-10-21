@@ -15,9 +15,9 @@ public class Item implements Serializable
 	private static final long serialVersionUID = 1L;
 	private String itemID;
 	private String name;
-	private BigDecimal quantity;
-	private BigDecimal price;
-	private BigDecimal salesTax;
+	private BigDecimal quantity = new BigDecimal("0");
+	private BigDecimal price = new BigDecimal("0");
+	private BigDecimal tax = new BigDecimal("0");
 	private Set<Tax> taxes = new HashSet<Tax>();
 		
 	/**
@@ -76,13 +76,13 @@ public class Item implements Serializable
 	{
 		this.price = price;
 	}
-	public BigDecimal getSalesTax()
+	public BigDecimal getTax()
 	{
-		return salesTax;
+		return tax;
 	}
-	public void setSalesTax(BigDecimal salesTax)
+	public void setTax(BigDecimal salesTax)
 	{
-		this.salesTax = salesTax;
+		this.tax = salesTax;
 	}
 	
 	/* (non-Javadoc)
@@ -99,7 +99,7 @@ public class Item implements Serializable
 		item.setName(this.name);
 		item.setPrice(this.price);
 		item.setQuantity(this.quantity);
-		item.setSalesTax(this.salesTax);
+		item.setTax(this.tax);
 		item.setTaxes(this.taxes);
 		return item;
 	}
@@ -123,7 +123,7 @@ public class Item implements Serializable
 	}
 	public BigDecimal getItemAmount()
 	{
-		return (price.multiply(quantity)).add(salesTax);
+		return (price.multiply(quantity)).add(tax);
 	}
 	
 }

@@ -13,6 +13,7 @@ import com.thoughtworks.invoice.Invoice;
 import com.thoughtworks.invoice.Item;
 import com.thoughtworks.invoice.Tax;
 import com.thoughtworks.invoice.renderer.InvoiceRenderer;
+import com.thoughtworks.invoice.util.InvoiceUtils;
 
 public class InvoiceServiceTest
 {
@@ -108,7 +109,7 @@ public class InvoiceServiceTest
 	}
 
 	@Test
-	public void testInvoice1()
+	public void testSampleInvoice1()
 	{
 		Item book = new Item();
 		book.setItemID("L-BOO-1");
@@ -117,17 +118,70 @@ public class InvoiceServiceTest
 		Item music = new Item();
 		music.setItemID("L-MUS-1");
 		music.setQuantity(new BigDecimal("1"));
-		music.setPrice(new BigDecimal("14.99"));
 		
 		Item choc1 = new Item();
 		choc1.setItemID("L-CHO-1");
-		choc1.setQuantity(new BigDecimal("10"));
+		choc1.setQuantity(new BigDecimal("1"));
 		
 		service.accumulateItem(book);
 		service.accumulateItem(music);
 		service.accumulateItem(choc1);
 		
 		Invoice invoice = service.getCurrentInvoice();
+		invoice = InvoiceUtils.calculateInvoice(invoice);
+		InvoiceRenderer renderer = new InvoiceRenderer(System.out);
+		renderer.render(invoice);
+		
+	}
+	
+	@Test
+	public void testSampleInvoice2()
+	{
+		Item ichoc1 = new Item();
+		ichoc1.setItemID("I-CHO-1");
+		ichoc1.setQuantity(new BigDecimal("1"));
+		
+		Item iperf1 = new Item();
+		iperf1.setItemID("I-PER-1");
+		iperf1.setQuantity(new BigDecimal("1"));
+		
+		service.accumulateItem(ichoc1);
+		service.accumulateItem(iperf1);
+		
+		Invoice invoice = service.getCurrentInvoice();
+		invoice = InvoiceUtils.calculateInvoice(invoice);
+		InvoiceRenderer renderer = new InvoiceRenderer(System.out);
+		renderer.render(invoice);
+		
+	}
+	
+	@Test
+	public void testSampleInvoice3()
+	{
+
+		Item iperf2 = new Item();
+		iperf2.setItemID("I-PER-2");
+		iperf2.setQuantity(new BigDecimal("1"));
+		
+		Item perf1 = new Item();
+		perf1.setItemID("L-PER-1");
+		perf1.setQuantity(new BigDecimal("1"));
+		
+		Item pills1 = new Item();
+		pills1.setItemID("L-PIL-1");
+		pills1.setQuantity(new BigDecimal("1"));
+
+		Item ichoc2 = new Item();
+		ichoc2.setItemID("I-CHO-2");
+		ichoc2.setQuantity(new BigDecimal("1"));
+		
+		service.accumulateItem(iperf2);
+		service.accumulateItem(perf1);
+		service.accumulateItem(pills1);
+		service.accumulateItem(ichoc2);
+		
+		Invoice invoice = service.getCurrentInvoice();
+		invoice = InvoiceUtils.calculateInvoice(invoice);
 		InvoiceRenderer renderer = new InvoiceRenderer(System.out);
 		renderer.render(invoice);
 		

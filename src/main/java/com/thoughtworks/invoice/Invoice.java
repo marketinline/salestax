@@ -17,7 +17,7 @@ public class Invoice implements Serializable
 	
 	private String invoiceID;
 	private Map<String, Item> itemMap = new HashMap<String, Item>();
-	private BigDecimal totalSalesTax = new BigDecimal("0");
+	private BigDecimal totalTax = new BigDecimal("0");
 	private BigDecimal totalAmount = new BigDecimal("0");
 	
 	public Invoice()
@@ -44,17 +44,17 @@ public class Invoice implements Serializable
 	/**
 	 * @return the totalSalesTax
 	 */
-	public BigDecimal getTotalSalesTax()
+	public BigDecimal getTotalTax()
 	{
-		return totalSalesTax;
+		return totalTax;
 	}
 
 	/**
 	 * @param totalSalesTax the totalSalesTax to set
 	 */
-	public void setTotalSalesTax(BigDecimal totalSalesTax)
+	public void setTotalTax(BigDecimal totalSalesTax)
 	{
-		this.totalSalesTax = totalSalesTax;
+		this.totalTax = totalSalesTax;
 	}
 
 	public String getInvoiceID()

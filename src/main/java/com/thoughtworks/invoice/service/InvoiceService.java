@@ -25,7 +25,7 @@ public class InvoiceService
 	
 	public Boolean accumulateItem(Item item)
 	{
-		if(invoiceDao.updateQuantity(currentInvoice, item))
+		if(invoiceDao.updateQuantity(item, item.getQuantity().negate()))
 		{
 			Map<String, Item> itemMap = currentInvoice.getItemMap();
 			String itemID = item.getItemID();
@@ -35,12 +35,16 @@ public class InvoiceService
 				BigDecimal availableInCart = inCartItem.getQuantity();
 				BigDecimal boughtNow = item.getQuantity();
 				inCartItem.setQuantity(availableInCart.add(boughtNow));
+				invoiceDao.createOrUpdateInvoice(currentInvoice);
 			}
 			else
 			{
-				itemMap.put(itemID, item);
+				Item itemFromStore = invoiceDao.fetchItemFromStore(itemID);
+				Item clonedItem = itemFromStore.cloneBasicFields();
+				clonedItem.setQuantity(item.getQuantity());
+				itemMap.put(itemID, clonedItem);
+				invoiceDao.createOrUpdateInvoice(currentInvoice);
 			}
-			invoiceDao.createOrUpdateInvoice(currentInvoice);
 			return Boolean.TRUE;
 		}
 		return Boolean.FALSE;
@@ -51,8 +55,7 @@ public class InvoiceService
 		Map<String, Item> itemMap = currentInvoice.getItemMap();
 		for(Item item : itemMap.values())
 		{
-			item.setQuantity(item.getQuantity().negate());
-			invoiceDao.updateQuantity(currentInvoice, item);
+			invoiceDao.updateQuantity(item, item.getQuantity());
 		}
 		itemMap.clear();
 	}
