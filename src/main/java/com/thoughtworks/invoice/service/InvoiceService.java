@@ -66,4 +66,9 @@ public class InvoiceService
 	{
 		return currentInvoice;
 	}
+	
+	public void loadStockStore(Map<String, Item> itemMap)
+	{
+		invoiceDao.loadStockStore(itemMap);
+	}
 }

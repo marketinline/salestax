@@ -15,14 +15,17 @@ public class StockDataStore extends MileDataStore<Item>
 	{
 		super();
 		logger.debug("Store initialized with parameters");
-		if(cached)
+		/*
+		 * This will be opened up when the serializer is complete functional
+		 */
+		/*if(cached)
 		{
 			Collection<Item> collection = stockSerializer.getAll();
 			for(Item item : collection)
 			{
 				stockCache.put(item.getItemID(), item);
 			}
-		}
+		}*/
 		this.stockCacheMap.put("default", stockCache);
 		this.mileSerializer = stockSerializer;
 	}

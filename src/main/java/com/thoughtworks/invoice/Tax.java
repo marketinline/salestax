@@ -12,7 +12,6 @@ public class Tax implements Serializable
 	/** System generated Serial Version UID. */
 	private static final long serialVersionUID = 13253278190658550L;
 	private String taxName;
-	private String taxDescription;
 	private BigDecimal taxPercentage;
 	
 	/**
@@ -30,20 +29,6 @@ public class Tax implements Serializable
 		this.taxName = taxName;
 	}
 	/**
-	 * @return the taxDescription
-	 */
-	public String getTaxDescription()
-	{
-		return taxDescription;
-	}
-	/**
-	 * @param taxDescription the taxDescription to set
-	 */
-	public void setTaxDescription(String taxDescription)
-	{
-		this.taxDescription = taxDescription;
-	}
-	/**
 	 * @return the taxPercentage
 	 */
 	public BigDecimal getTaxPercentage()
@@ -56,6 +41,15 @@ public class Tax implements Serializable
 	public void setTaxPercentage(BigDecimal taxPercentage)
 	{
 		this.taxPercentage = taxPercentage;
+	}
+	
+	@Override
+	public Tax clone()
+	{
+		Tax tax = new Tax();
+		tax.taxName = this.taxName;
+		tax.taxPercentage = this.taxPercentage;
+		return tax;
 	}
 	
 }

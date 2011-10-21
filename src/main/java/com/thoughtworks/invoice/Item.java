@@ -5,6 +5,7 @@ package com.thoughtworks.invoice;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Set;
 
 public class Item implements Serializable
@@ -17,8 +18,8 @@ public class Item implements Serializable
 	private BigDecimal quantity;
 	private BigDecimal price;
 	private BigDecimal salesTax;
-	private Set<Tax> taxes;
-	
+	private Set<Tax> taxes = new HashSet<Tax>();
+		
 	/**
 	 * @return the itemID
 	 */
@@ -84,7 +85,13 @@ public class Item implements Serializable
 		this.salesTax = salesTax;
 	}
 	
+	/* (non-Javadoc)
+	 * This should not be used as you will have to manually remove the quantity
+	 * Use cloneBasicFields instead
+	 * @see java.lang.Object#clone()
+	 */
 	@Override
+	@Deprecated
 	public Item clone()
 	{
 		Item item = new Item();
@@ -93,6 +100,7 @@ public class Item implements Serializable
 		item.setPrice(this.price);
 		item.setQuantity(this.quantity);
 		item.setSalesTax(this.salesTax);
+		item.setTaxes(this.taxes);
 		return item;
 	}
 	
@@ -102,6 +110,7 @@ public class Item implements Serializable
 		item.setItemID(this.itemID);
 		item.setName(this.name);
 		item.setPrice(this.price);
+		item.setTaxes(this.taxes);
 		return item;
 	}
 	public Set<Tax> getTaxes()
@@ -111,6 +120,10 @@ public class Item implements Serializable
 	public void setTaxes(Set<Tax> taxes)
 	{
 		this.taxes = taxes;
+	}
+	public BigDecimal getItemAmount()
+	{
+		return (price.multiply(quantity)).add(salesTax);
 	}
 	
 }

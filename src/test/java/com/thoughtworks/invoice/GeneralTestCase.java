@@ -1,4 +1,4 @@
-package com.test;
+package com.thoughtworks.invoice;
 
 import java.math.BigDecimal;
 
