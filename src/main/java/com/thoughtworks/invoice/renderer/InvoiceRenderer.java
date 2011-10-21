@@ -35,7 +35,9 @@ public class InvoiceRenderer
 	 */
 	public void render(Invoice invoice)
 	{
-
+		out.println();
+		out.println("Invoice ID: "+invoice.getInvoiceID());
+		out.println();
 		for(Item item : invoice.getItemMap().values())
 		{
 			out.println(item.getQuantity()+" "+item.getName()+" at "+item.getItemAmount());

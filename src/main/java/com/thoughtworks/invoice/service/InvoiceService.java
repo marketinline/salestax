@@ -81,7 +81,7 @@ public class InvoiceService
 		{
 			invoiceDao.updateQuantity(item, item.getQuantity());
 		}
-		itemMap.clear();
+		currentInvoice = new Invoice();
 	}
 	
 	/**
